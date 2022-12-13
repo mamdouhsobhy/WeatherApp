@@ -5,13 +5,11 @@ import android.os.Build
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
-import com.example.weatherapp.core.presentation.AppUtil
-import com.example.weatherapp.core.presentation.TextViewFactory
+import com.example.weatherapp.core.presentation.utilities.AppUtil
 import com.example.weatherapp.core.presentation.extensions.layoutInflater
 import com.example.weatherapp.databinding.LayoutItemForecastDaysBinding
 import com.example.weatherapp.weatherActivity.data.responseremote.getfivedays.FiveDays

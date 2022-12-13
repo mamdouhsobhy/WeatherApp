@@ -6,15 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.weatherapp.R
-import com.example.weatherapp.core.presentation.AppUtil
-import com.example.weatherapp.core.presentation.TextViewFactory
+import com.example.weatherapp.core.presentation.utilities.AppUtil
 import com.example.weatherapp.core.presentation.base.BaseFragmentBinding
 import com.example.weatherapp.core.presentation.common.SharedPrefs
 import com.example.weatherapp.core.presentation.extensions.showGenericAlertDialog
