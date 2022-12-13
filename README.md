@@ -6,7 +6,7 @@ used [Dagger Hilt, coroutines, clean architecture, Mvvm, StateFlow, clean code ,
 
 
 # Screenshots
-<img src="https://user-images.githubusercontent.com/41570196/147828565-681a87a3-3146-49d7-be09-885ce04f9e92.png" width="200">&nbsp;
+<img src="https://user-images.githubusercontent.com/41570196/207311849-e5a2fae2-e57b-4103-9747-35b26c04c398.gif" width="200">&nbsp;
 
 
 ## Built With
