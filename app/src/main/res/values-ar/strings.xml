@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="check_internet_connections">افحص اتصالك بالانترنت</string>
+    <string name="find_the_weather_of_your_location">ابحث عن طقس موقعك</string>
+    <string name="search">بحث</string>
+    <string name="search_location">البحث عن الموقع ...</string>
+    <string name="search_history">محفوظات البحث</string>
+    <string name="clear">حذف</string>
+    <string name="search_for_a_city">ابحث عن مدينة</string>
+    <string name="next_5_days_forecast">توقعات الأيام الخمسة التالية</string>
+    <string name="current_label">الحالي</string>
+    <string name="wind_label">الرياح</string>
+    <string name="humidity_label">الرطوبة</string>
+    <string name="zero_label">0%d</string>
+    <string name="wind_unit_label">%.0f km/hr</string>
+    <string name="today">اليوم</string>
+    <string name="settings">الاعدادات</string>
+    <string name="choose_the_temperature_unit">اختر وحدة درجة الحرارة</string>
+    <string name="celsius">مئوية</string>
+    <string name="fahrenheit">فهرنهايت</string>
+    <string name="choose_language">اختر اللغة</string>
+    <string name="english">الإنجليزية</string>
+    <string name="arabic">العربية</string>
+
+
+</resources>
