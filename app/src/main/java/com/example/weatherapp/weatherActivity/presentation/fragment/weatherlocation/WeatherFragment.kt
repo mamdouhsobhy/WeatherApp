@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -32,6 +33,7 @@ import com.example.weatherapp.weatherActivity.presentation.fragment.weatherlocat
 import com.example.weatherapp.weatherActivity.presentation.fragment.weatherlocation.viewmodel.GetWeatherActivityState
 import com.example.weatherapp.weatherActivity.presentation.fragment.weatherlocation.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -153,7 +155,7 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
     private fun handleStateChange(state: GetWeatherActivityState) {
         when (state) {
             is GetWeatherActivityState.Init -> Unit
-            is GetWeatherActivityState.ErrorLogin -> handleErrorLogin(
+            is GetWeatherActivityState.ErrorLogin -> handleErrorLogin(state.errorCode,
                 state.errorMessage
             )
             is GetWeatherActivityState.Success -> handleSuccess(state.modelGetWeatherResponseRemote)
@@ -168,6 +170,7 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
         when (state) {
             is GetFiveDaysActivityState.Init -> Unit
             is GetFiveDaysActivityState.ErrorLogin -> handleErrorLogin(
+                state.errorCode,
                 state.errorMessage
             )
             is GetFiveDaysActivityState.Success -> handleSuccessFiveDays(state.modelGetDaysForecastResponse)
@@ -178,7 +181,7 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
         }
     }
 
-    private fun handleErrorLogin(errorMessage: String) {
+    private fun handleErrorLogin(code : Int, errorMessage: String) {
         requireActivity().showGenericAlertDialog(errorMessage)
     }
 

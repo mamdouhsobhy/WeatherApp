@@ -11,9 +11,6 @@ fun Context.showToast(message: String, connectionError: Boolean=false){
     if (connectionError){
         Toasty.error(this, getString(R.string.check_internet_connections), Toast.LENGTH_SHORT, true).show()
 
-    }else{
-        Log.d("errror",message)
-        Toasty.error(this, message, Toast.LENGTH_SHORT, true).show()
     }
 }
 
