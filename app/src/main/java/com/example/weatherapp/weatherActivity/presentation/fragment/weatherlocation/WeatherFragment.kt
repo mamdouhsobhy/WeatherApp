@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -33,7 +32,6 @@ import com.example.weatherapp.weatherActivity.presentation.fragment.weatherlocat
 import com.example.weatherapp.weatherActivity.presentation.fragment.weatherlocation.viewmodel.GetWeatherActivityState
 import com.example.weatherapp.weatherActivity.presentation.fragment.weatherlocation.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -43,24 +41,30 @@ import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
-    private val adapterForecastDays: AdapterForecastDays by lazy { AdapterForecastDays() }
     private val args: WeatherFragmentArgs by navArgs()
-    private val mMap = HashMap<String, String>()
+
     private val weatherViewModel by viewModels<WeatherViewModel>()
     private val searchViewModel by viewModels<SearchViewModel>()
-    lateinit var animationSlideOut: Animation
-    lateinit var animationSlideIn: Animation
+
+    private val adapterForecastDays: AdapterForecastDays by lazy { AdapterForecastDays() }
+
+    private val mMap = HashMap<String, String>()
 
     @Inject
     lateinit var sharedPrefs: SharedPrefs
+
     var unit = ""
     var searchId = 0
     private var searchList = ArrayList<ModelSearchHistory>()
+
+    lateinit var animationSlideIn: Animation
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        initAnimation()
+        setupViewAnimation()
+        setUpDaysForecast()
         addListenerOnView()
-        setupAnimation()
         observeStateFlow()
         getSearchHistory()
         getWeather()
@@ -91,6 +95,9 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
         binding.settingBtn.setOnClickListener {
             showSettings()
         }
+        binding.swipeRefresh.setOnRefreshListener {
+            getWeather()
+        }
     }
 
     private fun showSettings() {
@@ -107,13 +114,16 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
         }).show(parentFragmentManager, "dialog actions")
     }
 
-    private fun initView() {
-        animationSlideOut = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out_left)
+    private fun initAnimation() {
         animationSlideIn = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_right)
+    }
+
+    private fun setUpDaysForecast() {
         binding.contentMainLayout.rvDaysForecast.adapter = adapterForecastDays
     }
 
     private fun getWeather() {
+        mMap.clear()
         if (unit.isNotEmpty()) {
             mMap["units"] = unit
         } else {
@@ -136,13 +146,14 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
     }
 
     private fun observeStateFlow() {
-        weatherViewModel.getWeatherState.flowWithLifecycle(
-            viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
-        ).onEach { state -> handleStateChange(state) }.launchIn(viewLifecycleOwner.lifecycleScope)
+        weatherViewModel.getWeatherState
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .onEach { state -> handleStateChange(state) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
 
-        weatherViewModel.getFiveDaysState.flowWithLifecycle(
-            viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
-        ).onEach { state -> handleStateChangeFiveDays(state) }
+        weatherViewModel.getFiveDaysState
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .onEach { state -> handleStateChangeFiveDays(state) }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         searchViewModel.searchState
@@ -186,7 +197,7 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
     }
 
     private fun handleLoading(isLoading: Boolean) {
-        binding.swipeContainer.isRefreshing = isLoading
+        binding.swipeRefresh.isRefreshing = isLoading
     }
 
     @SuppressLint("SetTextI18n")
@@ -207,8 +218,8 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
 
         lifecycleScope.launch {
             var found = false
-            for (i in searchList) {
-                if (i.searchName == args.location) {
+            for (item in searchList) {
+                if (item.searchName == args.location) {
                     found = true
                 }
             }
@@ -229,15 +240,12 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
 
     }
 
-    @SuppressLint("SetTextI18n")
     private fun handleSuccessFiveDays(weatherResponse: ModelGetDaysForecastResponseRemote) {
         adapterForecastDays.submitList(weatherResponse.list)
     }
 
-    private fun setupAnimation() {
-        binding.contentMainLayout.tvTemprature.startAnimation(animationSlideOut)
+    private fun setupViewAnimation() {
         binding.contentMainLayout.tvTemprature.startAnimation(animationSlideIn)
-        binding.contentMainLayout.tvDescriptionTemp.startAnimation(animationSlideOut)
         binding.contentMainLayout.tvDescriptionTemp.startAnimation(animationSlideIn)
     }
 

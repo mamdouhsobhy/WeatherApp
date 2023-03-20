@@ -41,7 +41,6 @@ class WeatherViewModel
         _getWeatherState.value = GetWeatherActivityState.ShowToast(message, isConnectionError)
     }
 
-
     fun getWeather(partMap: Map<String, String>) {
         viewModelScope.launch {
             weatherUseCase.executeGetWeather(partMap)
@@ -90,14 +89,6 @@ class WeatherViewModel
                     }
                 }
         }
-    }
-    private val _searchState =
-        MutableStateFlow<SearchActivityState>(SearchActivityState.Init)
-    val searchState: StateFlow<SearchActivityState> get() = _searchState
-
-
-    suspend fun getSearch(){
-        _searchState.value= SearchActivityState.Success(roomLocalUseCase.invokeSearch())
     }
 
     suspend fun insertSearch(searchResponse: List<ModelSearchHistory>) {

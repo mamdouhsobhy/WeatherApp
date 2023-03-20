@@ -40,7 +40,7 @@ class AdapterHistorySearch(private val itemSelected: (String) -> Unit) :
 
     private inner class ViewHolder(private val binding: LayoutItemSearchHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("ShowToast", "SetTextI18n", "NotifyDataSetChanged")
+        @SuppressLint("NotifyDataSetChanged")
         @RequiresApi(Build.VERSION_CODES.M)
         fun bind(item: ModelSearchHistory) = with(binding) {
 
@@ -69,7 +69,6 @@ class AdapterHistorySearch(private val itemSelected: (String) -> Unit) :
                 return oldItem == newItem
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
                 oldItem: ModelSearchHistory,
                 newItem: ModelSearchHistory

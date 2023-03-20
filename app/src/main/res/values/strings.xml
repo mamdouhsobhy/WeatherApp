@@ -2,7 +2,6 @@
     <string name="app_name">WeatherApp</string>
     <string name="check_internet_connections">Check Internet Connections</string>
     <string name="find_the_weather_of_your_location">Find \nThe Weather Of Your Location</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
     <string name="search_location">Search Location...</string>
     <string name="search_history">Search History</string>

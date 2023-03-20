@@ -35,7 +35,7 @@ class SearchLocationFragment : BaseFragmentBinding<FragmentSearchLocationBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViews()
+        setUpSearchHistory()
         addListenerOnView()
         getSearchHistory()
         observeStateFlow()
@@ -62,10 +62,10 @@ class SearchLocationFragment : BaseFragmentBinding<FragmentSearchLocationBinding
     private fun handleSuccessLocalHistory(modelList: List<ModelSearchHistory>) {
         searchList= modelList as ArrayList<ModelSearchHistory>
         if (modelList.isEmpty()) {
-            binding.searchTextView.isVisible = true
+            binding.tvSearchForCity.isVisible = true
             binding.layoutSearchHistory.isVisible = false
         } else {
-            binding.searchTextView.isVisible = false
+            binding.tvSearchForCity.isVisible = false
             binding.layoutSearchHistory.isVisible = true
 
         }
@@ -80,19 +80,7 @@ class SearchLocationFragment : BaseFragmentBinding<FragmentSearchLocationBinding
         }
     }
 
-    @SuppressLint("SuspiciousIndentation")
     private fun addListenerOnView() {
-        binding.edLocation.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            binding.edLocation.hint = ""
-        }
-
-        binding.edLocation.addTextChangedListener {
-            if (it.isNullOrEmpty()) {
-                binding.edLocation.hint = getString(R.string.search_location)
-                if(searchList.isNotEmpty())
-                binding.layoutSearchHistory.isVisible = true
-            }
-        }
 
         binding.imgSearch.setOnClickListener {
             if (validateForm()) {
@@ -104,7 +92,7 @@ class SearchLocationFragment : BaseFragmentBinding<FragmentSearchLocationBinding
         }
     }
 
-    private fun initViews() {
+    private fun setUpSearchHistory() {
         binding.rvSearchHistory.adapter = adapterHistorySearch
     }
 

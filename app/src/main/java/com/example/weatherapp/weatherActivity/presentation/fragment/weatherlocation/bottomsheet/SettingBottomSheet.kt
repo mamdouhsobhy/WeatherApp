@@ -99,7 +99,7 @@ class SettingBottomSheet(
         binding.radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.celsiusUnit -> {
-                    itemUnitAction(Nav.Unit.Celsius)
+                    itemUnitAction(Nav.DefaultUnit.unit)
                     dismiss()
                 }
                 R.id.fahrenhUnit -> {

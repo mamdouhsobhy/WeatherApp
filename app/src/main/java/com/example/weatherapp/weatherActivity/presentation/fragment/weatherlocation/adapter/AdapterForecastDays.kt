@@ -48,7 +48,6 @@ class AdapterForecastDays :
         @SuppressLint("ShowToast", "SetTextI18n", "NotifyDataSetChanged", "SimpleDateFormat")
         @RequiresApi(Build.VERSION_CODES.M)
         fun bind(item: FiveDays) = with(binding) {
-            val animationSlideOut = AnimationUtils.loadAnimation(root.context, R.anim.slide_out_left)
             val animationSlideIn = AnimationUtils.loadAnimation(root.context, R.anim.slide_in_right)
             val inFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val date: Date = inFormat.parse(item.dt_txt)!!
@@ -58,15 +57,13 @@ class AdapterForecastDays :
             val clock: String = clockFormat.format(date)
             binding.tvDate.text= "$dayName  $clock"
 
-            binding.tvTemprature.startAnimation(animationSlideOut)
             binding.tvTemprature.startAnimation(animationSlideIn)
-            binding.tvDescriptionTemp.startAnimation(animationSlideOut)
             binding.tvDescriptionTemp.startAnimation(animationSlideIn)
-
 
             binding.tvTemprature.text = java.lang.String.format(Locale.getDefault(), "%.0f°",
                 item.main.temp_max)+" "+java.lang.String.format(
                 Locale.getDefault(), "%.0f°", item.main.temp_min)
+
             binding.tvDescriptionTemp.text = item.weather[0].description
             binding.animationView.setAnimation(AppUtil.getWeatherAnimation(item.weather[0].id))
             binding.animationView.playAnimation()
@@ -85,7 +82,6 @@ class AdapterForecastDays :
                 return oldItem == newItem
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
                 oldItem: FiveDays,
                 newItem: FiveDays
