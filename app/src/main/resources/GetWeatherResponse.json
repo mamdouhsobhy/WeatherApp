@@ -1,0 +1,44 @@
+{
+  "coord": {
+    "lon": 32.7183,
+    "lat": 26.1615
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 22.62,
+    "feels_like": 21.69,
+    "temp_min": 22.62,
+    "temp_max": 22.62,
+    "pressure": 1013,
+    "humidity": 29,
+    "sea_level": 1013,
+    "grnd_level": 1004
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 2.1,
+    "deg": 156,
+    "gust": 2.43
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1679472493,
+  "sys": {
+    "country": "EG",
+    "sunrise": 1679457090,
+    "sunset": 1679500845
+  },
+  "timezone": 7200,
+  "id": 350550,
+  "name": "Qena",
+  "cod": 200
+}

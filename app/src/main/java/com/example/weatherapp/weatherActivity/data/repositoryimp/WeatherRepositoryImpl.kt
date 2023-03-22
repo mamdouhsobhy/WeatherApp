@@ -39,11 +39,10 @@ class WeatherRepositoryImpl @Inject constructor(private val weatherService: Weat
                 emit(BaseResult.DataState(body))
             } else {
                 val type = object :
-                    TypeToken<WrappedResponse<ModelGetDaysForecastResponseRemote>>() {}.type
-                val err: WrappedResponse<ModelGetDaysForecastResponseRemote> =
+                    TypeToken<ModelGetDaysForecastResponseRemote>() {}.type
+                val err: ModelGetDaysForecastResponseRemote =
                     Gson().fromJson(response.errorBody()!!.charStream(), type)
-                err.code = response.code()
-                emit(BaseResult.ErrorState(err.code, err.error))
+                emit(BaseResult.ErrorState(err.cod, err.message))
             }
         }
     }

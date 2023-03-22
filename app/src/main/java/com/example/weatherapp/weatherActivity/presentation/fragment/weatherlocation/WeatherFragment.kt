@@ -203,9 +203,9 @@ class WeatherFragment : BaseFragmentBinding<FragmentWeatherBinding>() {
     @SuppressLint("SetTextI18n")
     private fun handleSuccess(weatherResponse: ModelGetWeatherResponseRemote) {
         binding.contentMainLayout.tvCurrentLocation.text =
-            weatherResponse.name + " " + weatherResponse.sys.country
+            weatherResponse.name + " " + weatherResponse.sys?.country
         binding.contentMainLayout.tvTemprature.text = java.lang.String.format(
-            Locale.getDefault(), "%.0f°", weatherResponse.main.temp
+            Locale.getDefault(), "%.0f°", weatherResponse.main?.temp
         )
         binding.contentMainLayout.tvDescriptionTemp.text = weatherResponse.weather[0].description
 

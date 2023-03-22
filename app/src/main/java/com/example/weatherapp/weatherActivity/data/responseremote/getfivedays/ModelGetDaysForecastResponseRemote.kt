@@ -1,11 +1,11 @@
 package com.example.weatherapp.weatherActivity.data.responseremote.getfivedays
 
 data class ModelGetDaysForecastResponseRemote(
-    val city: City,
+    val city: City?,
     val cnt: Int,
-    val cod: String,
+    val cod: Int,
     val list: List<FiveDays>,
-    val message: Int
+    val message: String
 )
 
 data class City(
